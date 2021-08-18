@@ -318,7 +318,7 @@
      * point.
      */
     var _pointAlongPath = function(curve, location, distance) {
-        
+
         if (_isPoint(curve)) {
             return {
                 point:curve[0],
@@ -338,14 +338,10 @@
             tally += _dist(cur, prev);
             prev = cur;
         }
-
         return {point:cur, location:curLoc};
     };
 
     var _length = function(curve) {
-
-        var d = new Date().getTime();
-
         if (_isPoint(curve)) return 0;
 
         var prev = _pointOnPath(curve, 0),
@@ -360,8 +356,6 @@
             tally += _dist(cur, prev);
             prev = cur;
         }
-        console.log("length", new Date().getTime() - d);
-
         return tally;
     };
 
@@ -385,11 +379,9 @@
      * thanks // http://bimixual.org/AnimationLibrary/beziertangents.html
      */
     var _gradientAtPoint = function(curve, location) {
-
         var p1 = _pointOnPath(curve, location),
             p2 = _pointOnPath(curve.slice(0, curve.length - 1), location),
             dy = p2.y - p1.y, dx = p2.x - p1.x;
-
         return dy === 0 ? Infinity : Math.atan(dy / dx);
     };
 
@@ -13740,6 +13732,34 @@
                 ];
             },
             /**
+             * @Author   hubary
+             * @Email    hubary@qq.com
+             * @customEndHeightConvert
+             **/
+            customEndHeightConvert = function(arr, height, customEndHeight) {
+                function __isArray(data) {
+                    if (Array && Array.isArray) {
+                        return Array.isArray(data);
+                    }
+                    return Object.prototype.toString.call(data) === '[object Array]';
+                }
+                if (!__isArray(arr)) {return arr;}
+                for (var outIndex = 0; outIndex < arr.length; outIndex++) {
+                    var item = arr[outIndex];
+                    if (Object.prototype.toString.call(item) === '[object Array]') {
+                        for (var innerIndex = 0; innerIndex < arr.length; innerIndex++) {
+                            if (height / 2 === item[innerIndex]) {
+                                item[innerIndex] =
+                                    height - customEndHeight > 20 ?
+                                    height - customEndHeight :
+                                    item[innerIndex];
+                            }
+                        }
+                    }
+                }
+                return arr;
+            },
+            /**
              * helper method to add a segment.
              */
             addSegment = function (segments, x, y, paintInfo) {
@@ -13753,6 +13773,10 @@
                 lastx = x;
                 lasty = y;
                 segments.push([ lx, ly, x, y, o ]);
+                if (params.customEnd && segments.length === 5) {
+                    var customEndHeight = params.customEndHeight || 20;
+                    customEndHeightConvert(segments, paintInfo.ySpan, customEndHeight);
+                }
             },
             segLength = function (s) {
                 return Math.sqrt(Math.pow(s[0] - s[2], 2) + Math.pow(s[1] - s[3], 2));

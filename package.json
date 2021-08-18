@@ -11,7 +11,7 @@
     "index.d.ts",
     "dist/js/jsplumb.js",
     "dist/js/jsplumb.min.js",
-    "css/jsplumbtoolkit-defaults.css"
+    "css/jsplumbtoolkit-defaults.css",
   ],
   "types": "index",
   "scripts": {
