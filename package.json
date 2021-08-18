@@ -1,7 +1,7 @@
 {
-  "name": "jsplumb",
+  "name": "@hubary/custom-jsplumb",
   "version": "2.15.6",
-  "description": "Visual connectivity for webapps",
+  "description": "对jsplumb v2.15.6进行自定义调整以实现业务需求",
   "main": "dist/js/jsplumb.js",
   "directories": {
     "doc": "doc",
@@ -11,7 +11,7 @@
     "index.d.ts",
     "dist/js/jsplumb.js",
     "dist/js/jsplumb.min.js",
-    "css/jsplumbtoolkit-defaults.css",
+    "css/jsplumbtoolkit-defaults.css"
   ],
   "types": "index",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jsplumb/jsplumb.git"
+    "url": "git://github.com/hubary/jsplumb.git"
   },
   "keywords": [
     "javascript",
